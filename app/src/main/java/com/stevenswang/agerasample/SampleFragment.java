@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.agera.BaseObservable;
 import com.google.android.agera.Function;
@@ -20,6 +21,8 @@ import com.google.android.agera.Result;
 import com.google.android.agera.Supplier;
 import com.google.android.agera.Updatable;
 import com.stevenswang.agerasample.entity.TelInfoEntity;
+
+import org.w3c.dom.Text;
 
 import static java.util.concurrent.Executors.newSingleThreadExecutor;
 
@@ -55,9 +58,25 @@ public class SampleFragment extends Fragment implements Updatable {
                         return telNum;
                     }
                 })
+                .check(new Predicate<String>() {
+                    @Override
+                    public boolean apply(@NonNull String value) {
+                        final boolean empty = TextUtils.isEmpty(value);
+                        if (empty){
+                            Toast.makeText(getContext(),"请输入手机号码!",Toast.LENGTH_SHORT).show();
+                        }
+                        return empty;
+                    }
+                })
+                .orSkip()
                 .goTo(newSingleThreadExecutor())
-                .attemptGetFrom(new TelSupplier(mSourceObservable))
-                .
+                .thenTransform(new Function<String, Result<TelInfoEntity>>() {
+                    @NonNull
+                    @Override
+                    public Result<TelInfoEntity> apply(@NonNull String input) {
+                        return null;
+                    }
+                })
                 .compile();
 
     }
