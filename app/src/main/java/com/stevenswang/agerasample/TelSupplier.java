@@ -1,6 +1,5 @@
 package com.stevenswang.agerasample;
 
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
@@ -12,29 +11,25 @@ import com.stevenswang.agerasample.entity.TelInfoEntity;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 
 /**
  * Created by wolun on 16/5/3.
  */
 public class TelSupplier implements Supplier<Result<TelInfoEntity>> {
-    private Supplier<String> mTel;
+    private String mTel;
 
-    public TelSupplier(Supplier<String> tel) {
+    public TelSupplier(String tel) {
         mTel = tel;
     }
 
     private static final String mBaseUrl = "http://tcc.taobao.com/cc/json/mobile_tel_segment.htm?";
 
     private TelInfoEntity getTelInfo() throws Exception {
-        URL url = new URL(mBaseUrl + "tel=" + mTel.get());
+        URL url = new URL(mBaseUrl + "tel=" + mTel);
 
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
         httpURLConnection.setRequestMethod("GET");

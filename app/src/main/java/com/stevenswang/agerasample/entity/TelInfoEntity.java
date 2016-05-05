@@ -24,7 +24,7 @@ public class TelInfoEntity {
     private String carrier;
 
     public String getMts() {
-        if (mts==null){
+        if (mts == null) {
             mts = "";
         }
         return mts;
@@ -32,7 +32,7 @@ public class TelInfoEntity {
 
 
     public String getProvince() {
-        if (province == null){
+        if (province == null) {
             province = "";
         }
         return province;
@@ -40,7 +40,7 @@ public class TelInfoEntity {
 
 
     public String getCatName() {
-        if (catName == null){
+        if (catName == null) {
             catName = "";
         }
         return catName;
@@ -48,14 +48,14 @@ public class TelInfoEntity {
 
 
     public String getTelString() {
-        if (telString == null){
+        if (telString == null) {
             telString = "";
         }
         return telString;
     }
 
     public String getAreaVid() {
-        if (areaVid == null){
+        if (areaVid == null) {
             areaVid = "";
         }
         return areaVid;
@@ -63,7 +63,7 @@ public class TelInfoEntity {
 
 
     public String getIspVid() {
-        if (ispVid == null){
+        if (ispVid == null) {
             ispVid = "";
         }
         return ispVid;
@@ -71,10 +71,18 @@ public class TelInfoEntity {
 
 
     public String getCarrier() {
-        if (carrier == null){
+        if (carrier == null) {
             carrier = "";
         }
         return carrier;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof TelInfoEntity) {
+            TelInfoEntity that = (TelInfoEntity) o;
+            return that.catName.equals(this.catName) && that.carrier.equals(this.carrier) && that.ispVid.equals(this.ispVid) && that.areaVid.equals(this.areaVid) && that.mts.equals(this.mts);
+        }
+        return super.equals(o);
+    }
 }
