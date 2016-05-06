@@ -14,8 +14,11 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
+                <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
+                <data android:scheme="sample"/>
+                <data android:host="rxui"/>
+                <data android:host="rxfunc"/>
             </intent-filter>
         </activity>
     </application>

@@ -17,6 +17,7 @@ import com.google.android.agera.Merger;
 import com.google.android.agera.Predicate;
 import com.google.android.agera.Repositories;
 import com.google.android.agera.Repository;
+import com.google.android.agera.RepositoryConfig;
 import com.google.android.agera.Result;
 import com.google.android.agera.Supplier;
 import com.google.android.agera.Updatable;
@@ -88,6 +89,7 @@ public class SampleFragment extends Fragment implements Updatable {
                         return currentRight;
                     }
                 })
+                .onDeactivation(RepositoryConfig.CANCEL_FLOW)
                 .compile();
 
     }
@@ -128,9 +130,7 @@ public class SampleFragment extends Fragment implements Updatable {
             TextView inputView = getView(R.id.telphone, mRootView);
             String telNum = inputView.getText().toString().trim();
             getPhone = telNum;
-//            if (!TextUtils.isEmpty(telNum)) {
             dispatchUpdate();
-//            }
         }
 
         @NonNull
