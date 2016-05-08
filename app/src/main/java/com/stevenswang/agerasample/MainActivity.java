@@ -19,14 +19,17 @@ public class MainActivity extends AppCompatActivity {
             if (uri != null) {
                 if (uri.getHost().equals("rxui")) {
                     fragment = new SampleFragment();
-                }else if (uri.getHost().equals("rxfunc")){
+                } else if (uri.getHost().equals("rxfunc")) {
                     fragment = new SampleFuncFragment();
+                } else {
+                    fragment = new SampleFragment();
                 }
             }
         }
-        if (fragment != null) {
-            getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).commit();
+        if (fragment == null) {
+            fragment = new SampleFragment();
         }
+        getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).commit();
     }
 
 }

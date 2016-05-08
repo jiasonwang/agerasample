@@ -16,6 +16,7 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.DEFAULT"/>
                 <data android:scheme="sample"/>
                 <data android:host="rxui"/>
                 <data android:host="rxfunc"/>
