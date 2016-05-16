@@ -12,9 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.agera.Function;
 import com.google.android.agera.Predicate;
+import com.google.android.agera.Receiver;
 import com.google.android.agera.Repositories;
 import com.google.android.agera.Repository;
 import com.google.android.agera.RepositoryConfig;
@@ -103,12 +105,18 @@ public class SampleFuncFragment extends Fragment implements Updatable {
 
     @Override
     public void update() {
-        Result<List<UiModel>> dataResult = mRepository.get();
-        if (dataResult.isPresent()) {
-            InnerAdapter adapter = (InnerAdapter) mRecyclerView.getAdapter();
-            adapter.setData(dataResult.get());
-        }
-
+        mRepository.get().ifSucceededSendTo(new Receiver<List<UiModel>>() {
+            @Override
+            public void accept(@NonNull List<UiModel> value) {
+                InnerAdapter adapter = (InnerAdapter) mRecyclerView.getAdapter();
+                adapter.setData(value);
+            }
+        }).ifFailedSendTo(new Receiver<Throwable>() {
+            @Override
+            public void accept(@NonNull Throwable value) {
+                Toast.makeText(getContext(),"failure",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private class InnerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
